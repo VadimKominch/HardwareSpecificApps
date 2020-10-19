@@ -1,0 +1,32 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity test_filterblock is
+end test_filterblock;
+
+architecture beh of test_filterblock is
+--filter without busy signal
+component filterblock
+  port(
+  input:in std_logic;
+  clk:in std_logic;
+  reset:in std_logic;
+  --except cases where input is vector not bit
+  --busy:out std_logic;
+  outputfilter:out std_logic_vector(15 downto 0));
+end component;
+
+signal input,reset:std_logic;
+signal clk:std_logic:='0';
+signal outputfilter:std_logic_vector(15 downto 0);
+
+begin
+  clk <= not clk after 10 ns;
+  reset<='0',
+  '1' after 10 ns,
+  '0' after 30 ns;
+  input<='0',
+         '1' after 930 ns,
+         '0' after 950 ns;
+  filter1:filterblock port map(input,clk,reset,outputfilter);
+end beh;

@@ -1,0 +1,19 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity add is
+  generic(
+  Size:integer
+  );
+  port(
+  a:in std_logic_vector(Size-1 downto 0);
+  b:in std_logic_vector(Size-1 downto 0);
+  c:out std_logic_vector(Size downto 0));
+end add;
+
+architecture beh of add is
+
+begin
+c<=a-b;  
+end beh;

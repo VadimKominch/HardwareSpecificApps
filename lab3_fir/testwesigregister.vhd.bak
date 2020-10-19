@@ -1,0 +1,28 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity testwesigregister is
+end testwesigregister;
+
+architecture beh of testwesigregister is
+
+component wesigregister
+  generic(
+  Size:integer);
+  port(
+  input:in std_logic;
+  clk:in std_logic;
+  we:in std_logic;
+  output:out std_logic);
+end component;
+
+signal output:std_logic;
+signal input,we,clk:std_logic:='0';
+
+begin
+clk <= not clk after 10 ns;
+input <= not input after 20 ns;
+we <= not we after 20 ns;
+reg1:wesigregister generic map(16) port map(input,clk,we,output);
+  
+end beh;

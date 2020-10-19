@@ -1,0 +1,62 @@
+D:/PIRVS/lab2/test_core.vhd {1 {vcom -work work -2002 -explicit -vopt D:/PIRVS/lab2/test_core.vhd
+Model Technology ModelSim SE vcom 6.5b Compiler 2009.05 May 21 2009
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Compiling entity test_core
+-- Compiling architecture beh of test_core
+
+} {} {}} D:/PIRVS/lab2/core.vhd {1 {vcom -work work -2002 -explicit -vopt D:/PIRVS/lab2/core.vhd
+Model Technology ModelSim SE vcom 6.5b Compiler 2009.05 May 21 2009
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Compiling entity core
+-- Compiling architecture beh of core
+
+} {} {}} D:/PIRVS/lab2/init_reg.vhd {1 {vcom -work work -2002 -explicit -vopt D:/PIRVS/lab2/init_reg.vhd
+Model Technology ModelSim SE vcom 6.5b Compiler 2009.05 May 21 2009
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Compiling entity init_reg
+-- Compiling architecture beh of init_reg
+
+} {} {}} D:/PIRVS/lab2/ROM.vhd {1 {vcom -work work -2002 -explicit -vopt D:/PIRVS/lab2/ROM.vhd
+Model Technology ModelSim SE vcom 6.5b Compiler 2009.05 May 21 2009
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package numeric_std
+-- Compiling entity rom
+-- Compiling architecture beh of rom
+
+} {} {}} D:/PIRVS/lab2/mux.vhd {1 {vcom -work work -2002 -explicit -vopt D:/PIRVS/lab2/mux.vhd
+Model Technology ModelSim SE vcom 6.5b Compiler 2009.05 May 21 2009
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Compiling entity mux
+-- Compiling architecture beh of mux
+
+} {} {}} D:/PIRVS/lab2/reg.vhd {1 {vcom -work work -2002 -explicit -vopt D:/PIRVS/lab2/reg.vhd
+Model Technology ModelSim SE vcom 6.5b Compiler 2009.05 May 21 2009
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Compiling entity reg
+-- Compiling architecture beh of reg
+
+} {} {}} D:/PIRVS/lab2/addsub.vhd {1 {vcom -work work -2002 -explicit -vopt D:/PIRVS/lab2/addsub.vhd
+Model Technology ModelSim SE vcom 6.5b Compiler 2009.05 May 21 2009
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package std_logic_signed
+-- Compiling entity addsub
+-- Compiling architecture beh of addsub
+
+} {} {}} D:/PIRVS/lab2/divider.vhd {1 {vcom -work work -2002 -explicit -vopt D:/PIRVS/lab2/divider.vhd
+Model Technology ModelSim SE vcom 6.5b Compiler 2009.05 May 21 2009
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package std_logic_unsigned
+-- Compiling entity divider
+-- Compiling architecture beh of divider
+
+} {} {}}

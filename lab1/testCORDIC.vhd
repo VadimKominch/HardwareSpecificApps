@@ -1,0 +1,40 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity testCORDIC is
+end testCORDIC;
+
+architecture beh of testCORDIC is
+
+component CORDIC
+  port(
+  x:in std_logic_vector(12 downto 0);
+  y:in std_logic_vector(12 downto 0);
+  angle:in std_logic_vector(12 downto 0);
+  start:in std_logic;
+  clk:in std_logic;
+  ready:out std_logic;
+  x_out:out std_logic_vector(12 downto 0);
+  y_out:out std_logic_vector(12 downto 0));
+end component;
+
+
+signal angle,x_coord,y_coord,res_x,res_y:std_logic_vector(12 downto 0);
+signal start,ready:std_logic;
+signal clk:std_logic:='0';
+
+begin
+  clk<=not clk after 20 ns;
+  start<='0',
+         '1' after 10 ns,
+         '0' after 30 ns,
+         '1' after 700 ns,
+         '0' after 720 ns;
+  angle<="0011001001000";
+  --"0110010010001";
+  --"1101111010000";
+  --"0010000110000";
+  x_coord<="0100000000000";
+  y_coord<="0000000000000";
+cordic1:CORDIC port map(x_coord,y_coord,angle,start,clk,ready,res_x,res_y);  
+end beh;

@@ -1,0 +1,30 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity counter is
+  port(
+  clk:in std_logic;
+  reset:in std_logic;
+  number:out std_logic_vector(3 downto 0));
+end counter;
+
+architecture beh of counter is
+
+signal count:std_logic_vector(3 downto 0);
+
+begin
+  process(clk,reset)
+    begin
+      if(reset='1') then
+        count<="0000";
+    elsif(clk='1' and clk'event) then
+      if(count="1100") then
+        count<="0000";
+      else
+        count<=count+1;
+      end if;
+    end if;
+    end process;
+    number<=count;
+end beh;

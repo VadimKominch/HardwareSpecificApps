@@ -1,0 +1,20 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity test_correction is
+end test_correction;
+
+architecture beh of test_correction is
+component correction_posl
+  port(
+  x_in:in std_logic_vector(12 downto 0);
+  x_out:out std_logic_vector(12 downto 0)
+  );
+end component;
+
+signal x_in,x_out:std_logic_vector(12 downto 0);
+
+begin
+  x_in<="0011010010110";
+c1:correction_posl port map(x_in,x_out);
+end beh;

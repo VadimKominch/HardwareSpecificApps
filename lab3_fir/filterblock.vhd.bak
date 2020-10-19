@@ -1,0 +1,145 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity filterblock is
+  port(
+  input:in std_logic;
+  clk:in std_logic;
+  reset:in std_logic;
+  --t_s_valid:in std_logic;
+  --t_s_data:in std_logic;
+  --t_s_last:in std_logic;
+  --t_s_ready:out std_logic;
+  --t_m_valid:out std_logic;
+  --t_m_data:out std_logic;
+  --t_m_last:in std_logic;
+  --t_m_ready:out std_logic;
+  --except cases where input is vector not bit
+  outputfilter:out std_logic_vector(15 downto 0));
+end filterblock;
+  
+architecture beh of filterblock is
+  
+component core
+  port(
+  x1:in std_logic;
+  x2:in std_logic;
+  x3:in std_logic;
+  x4:in std_logic;
+  Ts:in std_logic;
+  clk:in std_logic;
+  reset:in std_logic;
+  y:out std_logic_vector(15 downto 0));
+end component;
+
+component reg
+  generic(
+  Size:integer);
+  port(
+  input:in std_logic_vector(Size-1 downto 0);
+  clk:in std_logic;
+  output:out std_logic_vector(Size-1 downto 0));
+end component;  
+
+component basicregister
+  generic(
+  Size:integer);
+  port(
+  input:in std_logic;
+  clk:in std_logic;
+  output:out std_logic);
+end component;
+
+component counter_with_ts_signal
+  generic
+  (
+  Size:integer
+  );
+  port(
+  reset:in std_logic;
+  clk:in std_logic;
+  Ts:out std_logic
+  );
+end component;
+
+component basicregister_output_vector
+  generic(
+  Size:integer);
+  port(
+  input:in std_logic;
+  clk:in std_logic;
+  output:out std_logic_vector(Size-1 downto 0));
+end component;
+
+component wesigregister
+  generic(
+  Size:integer);
+  port(
+  input:in std_logic_vector(Size-1 downto 0);
+  clk:in std_logic;
+  we:in std_logic;
+  output:out std_logic_vector(Size-1 downto 0));
+end component;
+
+signal output_reg1,output_reg2,output_reg3,output_reg4,output_Ts,custom_reset:std_logic;
+signal output,output_core,calculated,prehistory: std_logic_vector(15 downto 0);
+signal counter:std_logic_vector(5 downto 0);
+signal not_ready,delayed_input:std_logic;
+signal counter2:std_logic_vector(3 downto 0);
+
+begin
+--counter to generate not ready signal to get valid data on exit
+not_ready_signal_counter:process(clk)
+begin
+  if(reset='1') then
+    counter<=(others=>'0');
+    not_ready<='0';
+  elsif(rising_edge(clk)) then
+    if(counter="111110") then
+      not_ready<='1';
+    else
+      counter <= counter + 1;
+    end if;    
+  end if;
+end process;
+--generating reset singal for core
+counter_for_core_reset:process(clk)
+begin
+  if(reset='1') then
+    counter2<=(others=>'0');
+    custom_reset<='1';
+  elsif(rising_edge(clk)) then
+    if(counter2="1111") then
+      custom_reset<='1';
+    else
+      custom_reset<='0';
+    end if;
+    counter2 <= counter2 + 1;    
+  end if;
+end process;
+
+--one delay unit for input signal
+delay:process(clk)
+begin
+  if(rising_edge(clk)) then
+  delayed_input<=input;
+  end if;
+end process;
+
+--counter for generating Ts bit every 16 clocks
+cnt1:counter_with_ts_signal generic map(4) port map(reset,clk,output_Ts);
+--prehistory emulation
+reg1:basicregister generic map(16) port map(output_reg2,clk,output_reg1);
+reg2:basicregister generic map(16) port map(output_reg3,clk,output_reg2);
+reg3:basicregister generic map(16) port map(delayed_input,clk,output_reg3);
+reg4:basicregister generic map(16) port map(output_reg3,clk,output_reg4);
+--generate Ts signal
+core1:core port map(output_reg1,output_reg2,output_reg3,delayed_input,output_Ts,clk,custom_reset,calculated);
+--register to store calculated value
+prehistoryreg:basicregister_output_vector generic map(16) port map(input,clk,prehistory);
+
+output<= prehistory when not_ready='0' else calculated;
+output_reg:wesigregister generic map(16) port map(output,clk,output_Ts,outputfilter);
+--state machine    
+end beh;

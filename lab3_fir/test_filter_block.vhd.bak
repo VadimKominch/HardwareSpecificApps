@@ -1,0 +1,27 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity test_filter_block is
+end test_filter_block;
+
+architecture beh of test_filter_block is
+
+component filterblock
+  port(
+  input:in std_logic;
+  clk:in std_logic;
+  reset:in std_logic;
+  ready:out std_logic;
+  busy:out std_logic;
+  output:out std_logic_vector(15 downto 0));
+end component;
+
+signal input,reset,ready,busy:std_logic;
+signal output:std_logic_vector(15 downto 0);
+signal clk:std_logic:='0';
+
+begin
+  clk<=not clk after 5 ns;
+  filter1:filterblock port map();
+  
+end beh;

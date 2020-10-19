@@ -1,0 +1,27 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity ROMreplace is
+  port(
+  a:in std_logic_vector(3 downto 0);
+  b:out std_logic_vector(11 downto 0));
+end ROMreplace;
+
+architecture beh of ROMreplace is
+begin
+  
+  case a is
+  				when "0000" => b <=x"000";
+				when "0001" => b <=x"000";
+  		    when "0010" => b <=x"000";
+  			  when "0011" => b <=x"000";
+  			  when "0100" => b <=x"000";
+  			  when "0101" => b <=x"000";
+  			  when "0110" => b <=x"000";
+  				when "0111" => b <=x"000";
+  			  when "1000" => b <=x"000";
+  		    when "1001" => b <=x"000";
+				when "1010" => b <=x"000";
+ 				when others => b <=x"000";
+ 				end case; 
+end beh;

@@ -1,0 +1,31 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity mux_for_shift is
+  port(
+  a:in std_logic_vector(12 downto 0);
+  shift:in std_logic_vector(3 downto 0);
+  b:out std_logic_vector(12 downto 0));
+end mux_for_shift;
+
+architecture beh of mux_for_shift is
+begin
+  process(a,shift)
+    begin
+  case shift is
+when "0000" =>b<= "0000000000000" ,
+when "0001" =>b<= "0000000000001" ,
+when "0010" =>b<= "0000000000010" ,
+when "0011" =>b<= "0000000000011" ,
+when "0100" =>b<= "0000000000100" ,
+when "0101" =>b<= "0000000000101" ,
+when "0110" =>b<= "0000000000110" ,
+when "0111" =>b<= "0000000000111" ,
+when "1000" =>b<= "0000000000000",
+when "1001" =>b<= "0000000000001" ,
+when "1010" =>b<= "0000000000010",
+when "1011" =>b<= "0000000000011",
+when others =>b<= "0000000000111";
+end case; 
+end process;
+end beh;
